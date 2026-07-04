@@ -45,8 +45,8 @@ def create_checkout_session(request):
                     'quantity': 1,
                 }],
                 mode='payment',
-                success_url='http://127.0.0.1:8000/sucesso',
-                cancel_url='http://127.0.0.1:8000/biblioteca',
+                success_url='https://poiesis-loja.up.railway.app/sucesso',
+                cancel_url='https://poiesis-loja.up.railway.app/biblioteca',
             )
             return JsonResponse({'id': checkout_session.id})
         except Exception as e:
@@ -59,7 +59,7 @@ def create_checkout_session(request):
 def stripe_webhook(request):
     payload = request.body
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
-    endpoint_secret = 'whsec_SEU_SEGREDO_AQUI'  # Substitua pelo segredo real depois
+    endpoint_secret = 'whsec_LHm4EvuZegGLPvcLAytzKJezVOI8MDIa'  # Substitua pelo segredo real depois
 
     try:
         event = stripe.Webhook.construct_event(

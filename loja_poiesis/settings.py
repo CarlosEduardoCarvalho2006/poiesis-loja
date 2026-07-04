@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-f*6*ae=06o1txae@!8-obtwf5wm8$t5%igu1#3%s^-(6$j=)ac
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['poiesis-loja-production.up.railway.app', '127.0.0.1']
 
 
 # Application definition
@@ -126,3 +126,8 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+import dj_database_url
+DATABASE_URL = os.getenv('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.config(default=DATABASE_URL)
