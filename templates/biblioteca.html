@@ -22,37 +22,64 @@
                 <img src="https://via.placeholder.com/200x300/1a1817/d4af8e?text=Patior" alt="Capa do Patior">
                 <h3>Patior</h3>
                 <p>Prosa-poética da fluidez paciente.</p>
-                <a href="#" class="botao">Adquirir – R$7,90+</a>
+                <button class="botao checkout-button">Adquirir – R$7,90+</button>
             </div>
             <!-- Livro 2 -->
             <div class="livro">
                 <img src="https://via.placeholder.com/200x300/1a1817/d4af8e?text=Icaro" alt="Capa do Ícaro">
                 <h3>Ícaro</h3>
                 <p>Prosa-poética do despertar e da magia.</p>
-                <a href="#" class="botao">Adquirir – R$14,90</a>
+                <button class="botao checkout-button">Adquirir – R$14,90</button>
             </div>
             <!-- Livro 3 -->
             <div class="livro">
                 <img src="https://via.placeholder.com/200x300/1a1817/d4af8e?text=Mulherar" alt="Capa do Mulherar">
                 <h3>Mulherar</h3>
                 <p>Manifesto poético sobre o feminino que se cria.</p>
-                <a href="#" class="botao">Adquirir – R$9,90</a>
+                <button class="botao checkout-button">Adquirir – R$9,90</button>
             </div>
             <!-- Livro 4 -->
             <div class="livro">
                 <img src="https://via.placeholder.com/200x300/1a1817/d4af8e?text=Desajeitados" alt="Capa dos Desajeitados Luminosos">
                 <h3>Desajeitados Luminosos</h3>
                 <p>Prosa-poética da beleza ordinária.</p>
-                <a href="#" class="botao">Adquirir – R$12,90</a>
+                <button class="botao checkout-button">Adquirir – R$12,90</button>
             </div>
             <!-- Combo -->
             <div class="livro destaque">
                 <img src="https://via.placeholder.com/200x300/1a1817/c47a5a?text=Colecao" alt="Capa da Coleção Primeiros Voos">
                 <h3>Coleção Primeiros Voos</h3>
                 <p>Os quatro textos reunidos. A travessia completa.</p>
-                <a href="#" class="botao">Adquirir – R$39,90</a>
+                <button class="botao checkout-button">Adquirir – R$39,90</button>
             </div>
         </div>
     </main>
 </body>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('{{ stripe_publishable_key }}');
+    var buttons = document.querySelectorAll('.checkout-button');
+
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function () {
+            fetch('/create-checkout-session', {
+                method: 'POST',
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (session) {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function (result) {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
+        });
+    });
+</script>
 </html>
