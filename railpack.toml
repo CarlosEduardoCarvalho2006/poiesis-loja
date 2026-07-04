@@ -1,0 +1,2 @@
+[deploy]
+start = "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn loja_poiesis.wsgi"
