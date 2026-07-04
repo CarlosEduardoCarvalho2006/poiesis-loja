@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,700;1,300&family=Lato:wght@300&display=swap');
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: #e8e0d5;
+    background-color: #1a1817;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+
+h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    color: #d4af8e;
+    font-size: 5em;
+    letter-spacing: 10px;
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+    color: #e8e0d5;
+    font-size: 1.2em;
+}
+
+a {
+    display: inline-block;
+    padding: 15px 30px;
+    margin-top: 20px;
+    border: 1px solid #d4af8e;
+    color: #d4af8e;
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4em;
+    letter-spacing: 2px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+a:hover {
+    background-color: #d4af8e;
+    color: #1a1817;
+}
+
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    background-color: rgba(26, 24, 23, 0.7);
+}
+
+nav a {
+    margin: 0 20px;
+    font-size: 1em;
+    border: none;
+    padding: 5px 0;
+}
+
+nav a:hover {
+    background-color: transparent;
+    color: #c47a5a;
+    border-bottom: 1px solid #c47a5a;
+}
+
+/* Título da página */
+h2 {
+    margin-top: 100px;
+    font-size: 3em;
+    letter-spacing: 5px;
+}
+
+.subtitulo {
+    font-style: italic;
+    color: #c47a5a;
+    margin-bottom: 40px;
+}
+
+/* Grade de livros */
+.vitrine {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+.livro {
+    background-color: rgba(26, 24, 23, 0.8);
+    padding: 20px;
+    border-radius: 4px;
+    width: 200px;
+    text-align: center;
+}
+
+.livro img {
+    width: 150px;
+    height: 225px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.livro h3 {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.livro p {
+    font-size: 0.9em;
+    color: #c47a5a;
+    margin-bottom: 15px;
+}
+
+.livro .botao {
+    font-size: 0.9em;
+    padding: 10px 20px;
+}
+
+.destaque {
+    border: 1px solid #c47a5a;
+}
+
+.servicos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 900px;
+    padding: 20px;
+}
+
+.servico {
+    background-color: rgba(26, 24, 23, 0.8);
+    padding: 30px;
+    border-radius: 4px;
+    width: 250px;
+    text-align: center;
+    border: 1px solid rgba(212, 175, 142, 0.2);
+}
+
+.servico h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.servico p {
+    font-size: 0.9em;
+    color: #c47a5a;
+    margin-bottom: 20px;
+    min-height: 50px;
+}
+
+.servico .botao {
+    font-size: 0.9em;
+    padding: 10px 20px;
+}
