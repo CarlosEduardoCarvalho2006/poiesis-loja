@@ -45,8 +45,8 @@ def create_checkout_session(request):
                     'quantity': 1,
                 }],
                 mode='payment',
-                success_url='https://poiesis-loja.up.railway.app/sucesso',
-                cancel_url='https://poiesis-loja.up.railway.app/biblioteca',
+                success_url='https://poiesis-loja-production.up.railway.app/sucesso',
+                cancel_url='https://poiesis-loja-production.up.railway.app/biblioteca',
             )
             return JsonResponse({'id': checkout_session.id})
         except Exception as e:
