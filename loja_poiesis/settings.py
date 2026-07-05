@@ -126,6 +126,15 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 
+# Configurações de e-mail (SendGrid)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'   # literalmente a string 'apikey'
+EMAIL_HOST_PASSWORD = os.getenv('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')
+DEFAULT_FROM_EMAIL = 'duducecg2006@gmail.com'  # seu e‑mail verificado no SendGrid
+
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 import dj_database_url
@@ -133,7 +142,8 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.config(default=DATABASE_URL)
 
-    STORAGES = {
+# Configuração de arquivos estáticos (WhiteNoise)
+STORAGES = {
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
