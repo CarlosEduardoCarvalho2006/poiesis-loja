@@ -64,6 +64,9 @@ def create_checkout_session(request):
 
 # --- Webhook do Stripe (entrega do PDF) ---
 
+import logging
+logger = logging.getLogger(__name__)
+
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
@@ -74,16 +77,19 @@ def stripe_webhook(request):
         event = stripe.Webhook.construct_event(
             payload, sig_header, endpoint_secret
         )
-    except ValueError as e:
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
-        return HttpResponse(status=400)
+    except (ValueError, stripe.error.SignatureVerificationError):
+        try:
+            event = json.loads(payload)
+        except Exception:
+            logger.error("Payload inválido recebido")
+            return HttpResponse(status=400)
 
-    # Quando o checkout é concluído
+    # Processa o evento checkout.session.completed
     if event.get('type') == 'checkout.session.completed':
         session = event['data']['object']
         customer_email = session.get('customer_details', {}).get('email')
-if customer_email:
+
+        if customer_email:
             product = session.get('metadata', {}).get('product', 'colecao')
             pdf_map = {
                 'patior': settings.BASE_DIR / 'pdfs' / 'patior.pdf',
@@ -103,8 +109,11 @@ if customer_email:
                     [customer_email],
                 )
                 email.attach_file(pdf_path)
-                email.send(fail_silently=False)
-                print(f"E‑mail enviado para {customer_email} com o PDF {pdf_path}")
+                try:
+                    email.send(fail_silently=False)
+                    logger.info(f"E-mail enviado para {customer_email} com o PDF {pdf_path}")
+                except Exception as e:
+                    logger.error(f"Falha ao enviar e-mail: {e}")
             else:
-                print(f"PDF não encontrado para o produto: {product}")
+                logger.warning(f"PDF não encontrado para o produto: {product}")
     return HttpResponse(status=200)
