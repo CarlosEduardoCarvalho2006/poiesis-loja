@@ -132,7 +132,7 @@ EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'   # literalmente a string 'apikey'
-EMAIL_HOST_PASSWORD = os.getenv('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')
+EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_API_KEY')
 DEFAULT_FROM_EMAIL = 'duducecg2006@gmail.com'  # seu e‑mail verificado no SendGrid
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
