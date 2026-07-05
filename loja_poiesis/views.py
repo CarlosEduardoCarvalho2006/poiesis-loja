@@ -80,15 +80,11 @@ def stripe_webhook(request):
         return HttpResponse(status=400)
 
     # Quando o checkout é concluído
-    if event['type'] == 'checkout.session.completed':
+    if event.get('type') == 'checkout.session.completed':
         session = event['data']['object']
         customer_email = session.get('customer_details', {}).get('email')
-
-        if customer_email:
-            # Obtém o nome do produto a partir dos metadados da sessão
+if customer_email:
             product = session.get('metadata', {}).get('product', 'colecao')
-            
-            # Mapeia o product para o caminho do PDF
             pdf_map = {
                 'patior': settings.BASE_DIR / 'pdfs' / 'patior.pdf',
                 'icaro': settings.BASE_DIR / 'pdfs' / 'icaro.pdf',
@@ -103,12 +99,12 @@ def stripe_webhook(request):
                 email = EmailMessage(
                     'Sua travessia começa aqui | Poiesis',
                     'Obrigado por adquirir seu livro. O PDF segue em anexo.\n\nCom afeto,\nCarlos Eduardo',
-                    'duducecg2006@gmail.com',  # seu e‑mail verificado no SendGrid
+                    'duducecg2006@gmail.com',
                     [customer_email],
                 )
                 email.attach_file(pdf_path)
                 email.send(fail_silently=False)
+                print(f"E‑mail enviado para {customer_email} com o PDF {pdf_path}")
             else:
                 print(f"PDF não encontrado para o produto: {product}")
-
     return HttpResponse(status=200)
