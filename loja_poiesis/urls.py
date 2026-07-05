@@ -8,4 +8,5 @@ urlpatterns = [
     path('atendimento', views.atendimento, name='atendimento'),
     path('webhook/stripe/', views.stripe_webhook, name='stripe_webhook'),
     path('create-checkout-session', views.create_checkout_session, name='create_checkout_session'),
+    path('sucesso', views.sucesso, name='sucesso'),
 ]
